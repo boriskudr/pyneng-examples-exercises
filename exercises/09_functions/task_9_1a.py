@@ -41,4 +41,16 @@ access_config = {
 }
 
 
+def generate_access_config(intf_vlan_mapping, access_template, psecurity=None):
+    result = []
+    for interface, vlan in intf_vlan_mapping.items():
+        result.append(f'interface {interface}')
+        for line in access_template:
+            if line.endswith("access vlan"):
+                result.append(f"{line} {vlan}")
+            else:
+                result.append(line)
+    return result
 
+
+print(generate_access_config(access_config, access_mode_template))
