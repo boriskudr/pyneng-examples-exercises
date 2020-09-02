@@ -50,7 +50,10 @@ def generate_access_config(intf_vlan_mapping, access_template, psecurity=None):
                 result.append(f"{line} {vlan}")
             else:
                 result.append(line)
+        if psecurity:
+            for line in psecurity:
+                result.append(line)
     return result
 
-
-print(generate_access_config(access_config, access_mode_template))
+if __name__ == "__main__":
+    print(generate_access_config(access_config, access_mode_template, psecurity=port_security_template))
